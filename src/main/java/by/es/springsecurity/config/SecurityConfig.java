@@ -33,10 +33,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((authorizeReq) -> authorizeReq
+                .authorizeHttpRequests(authorizeReq -> authorizeReq
+                        .requestMatchers("/login*")
+                        .permitAll()
                         .anyRequest()
                         .authenticated()
                 )
+                .formLogin(loginPage -> loginPage
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login_processing")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/success-login")
+                        .failureUrl("/login?error=true")
+                )
+                .logout(logout -> logout
+                                .logoutUrl("/perform_logout")
+                                .logoutSuccessUrl("/login")
+                                .deleteCookies("JSESSIONID")
+                        )
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }

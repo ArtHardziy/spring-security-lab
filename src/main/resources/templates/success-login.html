@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Success login</title>
+</head>
+<body>
+<h1>
+    You are successfully log in
+</h1>
+<h3>Useful links</h3>
+<ul>
+    <li><a href="/home">Go to home page!</a></li>
+    <li>If you want to log out press button:
+        <form th:action="@{/perform_logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </li>
+    <li>Still in develop</li>
+</ul>
+</body>
+</html>
