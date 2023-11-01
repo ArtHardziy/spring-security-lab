@@ -18,11 +18,13 @@ public class DevelopersRestController {
             new Developer(3L, "Misha", "Sidorov")
     ).collect(Collectors.toList());
 
+    @PreAuthorize("hasAuthority('READ')")
     @GetMapping
     public List<Developer> getAll() {
         return developers;
     }
 
+    @PreAuthorize("hasAuthority('READ')")
     @GetMapping("/{id}")
     public Developer getById(@PathVariable long id) {
         return developers.stream()
@@ -31,12 +33,14 @@ public class DevelopersRestController {
                 .orElse(null);
     }
 
+    @PreAuthorize("hasAuthority('WRITE')")
     @PostMapping
     public Developer create(@RequestBody Developer developer) {
         this.developers.add(developer);
         return developer;
     }
 
+    @PreAuthorize("hasAuthority('DELETE')")
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable long id) {
         developers.removeIf(developer -> developer.getId() == id);

@@ -34,12 +34,6 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizeReq) -> authorizeReq
-                        .requestMatchers(HttpMethod.GET, "/api/v1/developers", "/api/v1/developers/{id}")
-                        .hasAuthority(READ.getPermission())
-                        .requestMatchers(HttpMethod.POST, "/api/v1/developers")
-                        .hasAuthority(WRITE.getPermission())
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/developers/{id}")
-                        .hasAuthority(DELETE.getPermission())
                         .anyRequest()
                         .authenticated()
                 )
