@@ -1,46 +1,14 @@
 package by.es.springsecurity.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import jakarta.persistence.*;
+import lombok.Data;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import static by.es.springsecurity.model.Permission.*;
-
-@RequiredArgsConstructor
-public enum Role {
-    USER(Set.of(
-            READ
-    )),
-    ADMIN(
-            Set.of(
-                    READ, WRITE, DELETE
-            )
-    ),
-    MANAGER(
-            Set.of(
-                    READ, WRITE
-            )
-    );
-
-    @Getter
-    private final Set<Permission> permissionSet;
-
-    public List<SimpleGrantedAuthority> getAuthorities() {
-        var authorities = getPermissionSet()
-                .stream()
-                .map(Permission::getAuthority)
-                .collect(Collectors.toList());
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
-        return authorities;
-    }
-
-    public String[] getStringAuthorities() {
-        return this.getAuthorities().stream()
-                .map(SimpleGrantedAuthority::getAuthority)
-                .toArray(String[]::new);
-    }
+@Entity
+@Data
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
 }
