@@ -2,6 +2,7 @@ package by.es.springsecurity.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 @Entity
 @Data

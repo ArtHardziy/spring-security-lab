@@ -5,8 +5,23 @@ spring:
     password: spring-security
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: spring_security_lab
+
+logging:
+  level:
+    root: WARN
+    WEB: INFO
+    by.es: DEBUG
+
+token:
+  expirationms: 3600000 # 1 hour
+  secret:
+    key: fcb913a281ec15b9a1a83015aad8f61b9a450cca2595ab4dc831fb32a6864c1f
+
+
+# JWT secret key
+# node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
